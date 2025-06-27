@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Ano de Amor - Maykon & Thaissa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #faf5f0;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .heart-beat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .photo-frame {
+            border: 15px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: rotate(-3deg);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        
+        .polaroid {
+            background: white;
+            padding: 15px 15px 60px 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: rotate(5deg);
+            transition: all 0.3s ease;
+        }
+        
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #e67e7e;
+            border: 3px solid white;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: -18px;
+            top: 15px;
+            bottom: -15px;
+            width: 2px;
+            background: #e67e7e;
+        }
+        
+        .last-timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -25px;
+            bottom: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #e67e7e;
+            border: 3px solid white;
+        }
+
+        iframe {
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 105, 180, 0.6);
+            animation: float 10s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center bg-gradient-to-br from-pink-100 to-red-50 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-hearts opacity-10"></div>
+            <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-pink-200 opacity-20 blur-xl"></div>
+            <div class="absolute top-2/3 right-1/3 w-40 h-40 rounded-full bg-red-200 opacity-20 blur-xl"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4">
+            <h1 class="title-font text-4xl md:text-6xl font-bold text-rose-800 mb-4">Maykon & Thaissa</h1>
+            <div class="heart-beat inline-block text-rose-600 text-5xl mb-6">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h2 class="title-font text-2xl md:text-4xl text-rose-700 mb-8">Celebrando 1 Ano de Amor</h2>
+            
+            <div class="countdown-box p-6 max-w-3xl mx-auto">
+                <h3 class="text-xl md:text-2xl font-semibold text-gray-700 mb-4">Contagem Regressiva para o Nosso Primeiro Aniversário</h3>
+                <div class="flex justify-center space-x-2 md:space-x-4">
+                    <div class="text-center">
+                        <div class="text-3xl md:text-5xl font-bold text-rose-600" id="days">00</div>
+                        <div class="text-sm md:text-base text-gray-600">Dias</div>
+                    </div>
+                    <div class="text-3xl md:text-5xl font-bold text-rose-600 pt-2">:</div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-5xl font-bold text-rose-600" id="hours">00</div>
+                        <div class="text-sm md:text-base text-gray-600">Horas</div>
+                    </div>
+                    <div class="text-3xl md:text-5xl font-bold text-rose-600 pt-2">:</div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-5xl font-bold text-rose-600" id="minutes">00</div>
+                        <div class="text-sm md:text-base text-gray-600">Minutos</div>
+                    </div>
+                    <div class="text-3xl md:text-5xl font-bold text-rose-600 pt-2">:</div>
+                    <div class="text-center">
+                        <div class="text-3xl md:text-5xl font-bold text-rose-600" id="seconds">00</div>
+                        <div class="text-sm md:text-base text-gray-600">Segundos</div>
+                    </div>
+                </div>
+                <div class="mt-4 text-gray-600">
+                    <i class="fas fa-calendar-alt mr-2"></i>5 de Julho de 2025
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-0 right-0 text-center">
+            <a href="#our-story" class="text-rose-700 animate-bounce inline-block">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="our-story" class="py-20 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="title-font text-3xl md:text-4xl text-center text-rose-800 mb-16">Nossa História</h2>
+            
+            <div class="relative">
+                <!-- Timeline -->
+                <div class="relative pl-8 md:pl-16">
+                    <!-- Timeline Item 1 -->
+                    <div class="relative pb-12 timeline-item">
+                        <div class="timeline-line"></div>
+                        <div class="flex flex-col md:flex-row items-start">
+                            <div class="md:w-1/3 mb-4 md:mb-0 md:pr-8">
+                                <div class="polaroid inline-block">
+                                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Primeiro encontro" class="w-full h-48 object-cover">
+                                    <p class="text-center mt-2 text-gray-600">Nosso primeiro encontro</p>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3">
+                                <h3 class="title-font text-xl md:text-2xl text-rose-700 mb-2">O Primeiro Encontro</h3>
+                                <p class="text-gray-600 mb-4">Tudo começou em um dia comum, mas que se tornaria especial para sempre. Nosso primeiro encontro foi cheio de risadas e conexão instantânea. Sabíamos que havia algo especial entre nós desde o primeiro momento.</p>
+                                <div class="text-sm text-rose-600">
+                                    <i class="far fa-calendar mr-1"></i> 15 de Março de 2020
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 2 -->
+                    <div class="relative pb-12 timeline-item">
+                        <div class="timeline-line"></div>
+                        <div class="flex flex-col md:flex-row items-start">
+                            <div class="md:w-1/3 mb-4 md:mb-0 md:pr-8">
+                                <div class="polaroid inline-block">
+                                    <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nosso primeiro beijo" class="w-full h-48 object-cover">
+                                    <p class="text-center mt-2 text-gray-600">Primeiro beijo</p>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3">
+                                <h3 class="title-font text-xl md:text-2xl text-rose-700 mb-2">O Primeiro Beijo</h3>
+                                <p class="text-gray-600 mb-4">Sob as estrelas, em uma noite perfeita, compartilhamos nosso primeiro beijo. Foi mágico, como se o tempo tivesse parado. A partir daquele momento, sabíamos que nosso amor era especial e que queríamos construir uma vida juntos.</p>
+                                <div class="text-sm text-rose-600">
+                                    <i class="far fa-calendar mr-1"></i> 2 de Abril de 2020
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 3 -->
+                    <div class="relative pb-12 timeline-item">
+                        <div class="timeline-line"></div>
+                        <div class="flex flex-col md:flex-row items-start">
+                            <div class="md:w-1/3 mb-4 md:mb-0 md:pr-8">
+                                <div class="polaroid inline-block">
+                                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Pedido de casamento" class="w-full h-48 object-cover">
+                                    <p class="text-center mt-2 text-gray-600">O pedido</p>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3">
+                                <h3 class="title-font text-xl md:text-2xl text-rose-700 mb-2">O Pedido de Casamento</h3>
+                                <p class="text-gray-600 mb-4">Em uma praia deserta ao pôr do sol, Maykon se ajoelhou e pediu Thaissa em casamento. As lágrimas de felicidade e o "sim" imediato marcaram o início de uma nova fase em nossas vidas. Foi o dia mais feliz até então.</p>
+                                <div class="text-sm text-rose-600">
+                                    <i class="far fa-calendar mr-1"></i> 10 de Janeiro de 2024
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 4 -->
+                    <div class="relative pb-12 last-timeline-item">
+                        <div class="flex flex-col md:flex-row items-start">
+                            <div class="md:w-1/3 mb-4 md:mb-0 md:pr-8">
+                                <div class="polaroid inline-block">
+                                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Casamento" class="w-full h-48 object-cover">
+                                    <p class="text-center mt-2 text-gray-600">Nosso grande dia</p>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3">
+                                <h3 class="title-font text-xl md:text-2xl text-rose-700 mb-2">Nosso Casamento</h3>
+                                <p class="text-gray-600 mb-4">No dia 5 de Julho de 2024, diante de familiares e amigos, oficializamos nosso amor. Foi uma celebração cheia de amor, risadas e momentos inesquecíveis. Cada detalhe foi pensado com carinho para tornar esse dia perfeito.</p>
+                                <div class="text-sm text-rose-600">
+                                    <i class="far fa-calendar mr-1"></i> 5 de Julho de 2024
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-20 px-4 bg-rose-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="title-font text-3xl md:text-4xl text-center text-rose-800 mb-16">Nossos Momentos</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Photo 1 -->
+                <div class="photo-frame">
+                    <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Casal feliz" class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Photo 2 -->
+                <div class="photo-frame">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Noivado" class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Photo 3 -->
+                <div class="photo-frame">
+                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Viagem" class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Photo 4 -->
+                <div class="photo-frame">
+                    <img src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Jantar romântico" class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Photo 5 -->
+                <div class="photo-frame">
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Praia" class="w-full h-64 object-cover">
+                </div>
+                
+                <!-- Photo 6 -->
+                <div class="photo-frame">
+                    <img src="https://images.unsplash.com/photo-1529333164857-4230dd53c137?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Casamento" class="w-full h-64 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Letter Section -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="title-font text-3xl md:text-4xl text-center text-rose-800 mb-16">Cartas de Amor</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Maykon's Letter -->
+                <div class="bg-rose-50 p-8 rounded-lg shadow-md relative">
+                    <div class="absolute top-4 right-4 text-rose-300 text-4xl">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="title-font text-xl text-rose-700 mb-4">Para Minha Esposa</h3>
+                    <p class="text-gray-600 mb-4">Querida Thaissa,</p>
+                    <p class="text-gray-600 mb-4">Neste primeiro ano de casamento, quero te dizer o quanto você é especial para mim. Cada dia ao seu lado é uma bênção e uma aventura. Você transformou minha vida de maneiras que eu nem imaginava ser possível.</p>
+                    <p class="text-gray-600 mb-4">Lembro de cada risada compartilhada, cada desafio superado juntos e cada momento de amor que nos fortaleceu. Você é minha melhor amiga, minha companheira e o amor da minha vida.</p>
+                    <p class="text-gray-600">Mal posso esperar para celebrar muitos mais anos ao seu lado.</p>
+                    <p class="text-gray-600 mt-6">Com todo meu amor,</p>
+                    <p class="title-font text-rose-700">Maykon</p>
+                </div>
+                
+                <!-- Thaissa's Letter -->
+                <div class="bg-rose-50 p-8 rounded-lg shadow-md relative">
+                    <div class="absolute top-4 right-4 text-rose-300 text-4xl">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="title-font text-xl text-rose-700 mb-4">Para Meu Marido</h3>
+                    <p class="text-gray-600 mb-4">Meu querido Maykon,</p>
+                    <p class="text-gray-600 mb-4">Este primeiro ano de casamento foi tudo o que eu sempre sonhei e muito mais. Você me mostrou diariamente o verdadeiro significado do amor e da parceria. Sua paciência, seu carinho e seu apoio incondicional são meu porto seguro.</p>
+                    <p class="text-gray-600 mb-4">Cada pequeno gesto seu, cada "eu te amo" sussurrado, cada abraço apertado - tudo isso enche meu coração de alegria. Você é o homem com quem eu quero passar o resto da minha vida.</p>
+                    <p class="text-gray-600">Que venham muitos e muitos anos de felicidade ao seu lado.</p>
+                    <p class="text-gray-600 mt-6">Com todo meu amor,</p>
+                    <p class="title-font text-rose-700">Thaissa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Again Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-pink-100 to-red-50">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="title-font text-3xl md:text-4xl text-rose-800 mb-8">Nosso Primeiro Aniversário</h2>
+            <p class="text-gray-600 mb-8 text-lg">Estamos contando os dias para celebrar nosso primeiro ano de casados. Será um momento especial para lembrar de tudo que vivemos e planejar o futuro que ainda vamos construir juntos.</p>
+            
+            <div class="countdown-box p-6 inline-block">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Faltam apenas:</h3>
+                <div class="flex justify-center space-x-4">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-rose-600" id="days2">00</div>
+                        <div class="text-sm text-gray-600">Dias</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-rose-600" id="hours2">00</div>
+                        <div class="text-sm text-gray-600">Horas</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-rose-600" id="minutes2">00</div>
+                        <div class="text-sm text-gray-600">Minutos</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-rose-600" id="seconds2">00</div>
+                        <div class="text-sm text-gray-600">Segundos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player -->
+    <section class="py-8 px-4 bg-rose-700 text-white">
+        <div class="max-w-6xl mx-auto text-center">
+            <h3 class="title-font text-xl mb-4">Nossa Música Especial</h3>
+            <div class="flex justify-center">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Q2p5Oejb5vo?si=4b8Sh3KUMGlc-bho" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-rose-800 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="title-font text-3xl mb-4">Maykon & Thaissa</h2>
+                <div class="flex justify-center space-x-4 text-2xl">
+                    <a href="#" class="hover:text-rose-200 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-rose-200 transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-rose-200 transition"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            
+            <div class="text-center text-sm text-rose-200">
+                <p>© 2025 - Celebrando nosso amor. Todos os direitos reservados.</p>
+                <p class="mt-2">Desenvolvido por KronoXD para nosso primeiro aniversário de casamento.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating hearts
+        const heartsContainer = document.getElementById('floatingHearts');
+        const heartIcons = ['❤️', '💖', '💗', '💓', '💞', '💕'];
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = 5 + Math.random() * 10 + 's';
+            heart.style.fontSize = 10 + Math.random() * 20 + 'px';
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+        
+        setInterval(createHeart, 300);
+        
+        // Countdown to July 5, 2025
+        function updateCountdown() {
+            const anniversaryDate = new Date('July 5, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = anniversaryDate - now;
+            
+            // Time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Display results
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+            
+            // Second countdown
+            document.getElementById('days2').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours2').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes2').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds2').innerHTML = seconds.toString().padStart(2, '0');
+            
+            // If countdown is finished
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('countdown').innerHTML = "Já estamos comemorando nosso primeiro ano de casados!";
+            }
+        }
+        
+        // Update countdown every second
+        updateCountdown();
+        const countdownTimer = setInterval(updateCountdown, 1000);
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
